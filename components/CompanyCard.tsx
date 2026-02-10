@@ -53,14 +53,14 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   discountBadge: {
-    backgroundColor: '#e8f5e9',
-    paddingVertical: 6,
-    paddingHorizontal: 12,
+    backgroundColor: '#d32f2f',
+    paddingVertical: 4,
+    paddingHorizontal: 10,
     borderRadius: 8,
   },
   discountText: {
-color: '#2e7d32',
+color: '#fff',
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 14,
   },
 });
