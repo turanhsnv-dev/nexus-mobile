@@ -7,10 +7,9 @@ export default function HomeScreen() {
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
         
-        {/* --- BAŞLIQ (Header) --- */}
+        {/* --- BAŞLIQ --- */}
         <View style={styles.header}>
           <View>
-            {/* Böyük rəqəm */}
             <Text style={styles.bonusNumber}>24</Text>
             <Text style={styles.bonusLabel}>bonus</Text>
           </View>
@@ -18,24 +17,16 @@ export default function HomeScreen() {
             <Text style={styles.userName}>Ləman Mönsünlü</Text>
             <Text style={styles.userRole}>Müştəri</Text>
           </View>
-          {/* Sağ tərəfdə balaca bir ikon və ya boşluq ola bilər, şəkildə görünmür */}
           <View style={{ width: 40 }} /> 
         </View>
 
-        {/* --- KART (Loyalty Card) --- */}
         <View style={styles.card}>
-          {/* Kartın Boz Hissəsi */}
-          <View style={styles.cardHeader}>
-             <Image 
-                source={require('../../assets/logo.png')} 
-                style={styles.cardLogo} 
-                resizeMode="contain" 
-             />
-          </View>
-          
-          {/* Kartın Ağ Hissəsi (Barkod) */}
-          <View style={styles.cardBody}>
-            {/* Barkod əvəzi (Hələlik şəkil yoxdursa bunu istifadə et) */}
+          <Image 
+            source={require('../../assets/logo.png')} 
+            style={styles.cardLogo} 
+            resizeMode="contain" 
+          />
+          <View style={styles.whiteBox}>
             <View style={styles.barcodePlaceholder}>
                 <View style={[styles.bar, { width: 4 }]} />
                 <View style={[styles.bar, { width: 8 }]} />
@@ -48,6 +39,9 @@ export default function HomeScreen() {
                 <View style={[styles.bar, { width: 9 }]} />
                 <View style={[styles.bar, { width: 4 }]} />
                 <View style={[styles.bar, { width: 6 }]} />
+                <View style={[styles.bar, { width: 3 }]} />
+                <View style={[styles.bar, { width: 8 }]} />
+                <View style={[styles.bar, { width: 5 }]} />
             </View>
             
             <Text style={styles.cardNumber}>3 005 038 294 738</Text>
@@ -59,23 +53,36 @@ export default function HomeScreen() {
             <TouchableOpacity style={styles.menuItem}>
                 <Text style={styles.menuText}>Endirimlər</Text>
             </TouchableOpacity>
-            
             <View style={styles.separator} />
-            
             <TouchableOpacity style={styles.menuItem}>
                 <Text style={styles.menuText}>Son istifadələr</Text>
             </TouchableOpacity>
             <View style={styles.separator} />
         </View>
 
-        {/* --- TƏRƏFDAŞLAR (Partners) --- */}
+        {/* --- TƏRƏFDAŞLAR --- */}
         <Text style={styles.sectionTitle}>Tərəfdaşlar</Text>
         <View style={styles.partnersRow}>
-            {/* Şəkillərin yoxdursa, sadə dairələr qoyuram */}
-            <View style={styles.partnerLogo}><Text style={{fontSize: 10}}>Hill</Text></View>
-            <View style={styles.partnerLogo}><Text style={{fontSize: 10}}>BMP</Text></View>
-            <View style={styles.partnerLogo}><Text style={{fontSize: 10}}>Adalat</Text></View>
-            <View style={styles.partnerLogo}><Text style={{fontSize: 10}}>VetArt</Text></View>
+            <Image 
+              source={require('../../assets/hill.png')} 
+              style={styles.partnerLogo} 
+              resizeMode="contain" 
+            />
+            <Image 
+              source={require('../../assets/bmp.png')} 
+              style={styles.partnerLogo} 
+              resizeMode="contain" 
+            />
+            <Image 
+              source={require('../../assets/adalat.png')} 
+              style={styles.partnerLogo} 
+              resizeMode="contain" 
+            />
+            <Image 
+              source={require('../../assets/vetart.png')} 
+              style={styles.partnerLogo} 
+              resizeMode="contain" 
+            />
         </View>
 
       </ScrollView>
@@ -87,7 +94,6 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#fff' },
   scrollContent: { padding: 20 },
 
-  // Header
   header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 },
   bonusNumber: { fontSize: 48, fontWeight: 'bold', color: '#000' },
   bonusLabel: { fontSize: 14, color: '#999', marginTop: -5 },
@@ -95,52 +101,54 @@ const styles = StyleSheet.create({
   userName: { fontSize: 18, fontWeight: 'bold', color: '#000' },
   userRole: { fontSize: 14, color: '#999' },
 
-  // Card Design
   card: {
-    backgroundColor: '#fff',
+    backgroundColor: '#E5E7EB', 
     borderRadius: 16,
+    padding: 16, 
     marginBottom: 30,
-    // Shadow (Kölgə)
+    alignItems: 'center', 
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
     shadowRadius: 10,
-    elevation: 5, // Android üçün kölgə
-    overflow: 'hidden', // İçindəkilər kənara çıxmasın
-    borderWidth: 1,
-    borderColor: '#f0f0f0'
+    elevation: 5,
   },
-  cardHeader: {
-    backgroundColor: '#E5E7EB', // Boz hissə
-    height: 80,
-    justifyContent: 'center',
-    alignItems: 'center',
+  cardLogo: { 
+    width: 140, 
+    height: 40, 
+    marginBottom: 16 
   },
-  cardLogo: { width: 150, height: 50 },
-  cardBody: {
-    backgroundColor: '#fff',
-    padding: 20,
-    alignItems: 'center',
-  },
-  cardNumber: { fontSize: 16, fontWeight: '600', color: '#333', marginTop: 10, letterSpacing: 2 },
   
-  // Fake Barcode Styling
-  barcodePlaceholder: { flexDirection: 'row', height: 50, gap: 4, alignItems: 'center' },
+  whiteBox: {
+    backgroundColor: '#fff', 
+    width: '100%', 
+    paddingVertical: 20, 
+    paddingHorizontal: 10,
+    borderRadius: 12, 
+    alignItems: 'center', 
+  },
+
+  cardNumber: { fontSize: 14, fontWeight: '600', color: '#333', marginTop: 10, letterSpacing: 1 },
+  
+  barcodePlaceholder: { flexDirection: 'row', height: 50, gap: 3, alignItems: 'center', justifyContent: 'center' },
   bar: { backgroundColor: '#000', height: '100%' },
 
-  // Menu List
   menuList: { marginBottom: 30 },
   menuItem: { paddingVertical: 16 },
   menuText: { fontSize: 16, color: '#000' },
   separator: { height: 1, backgroundColor: '#eee' },
 
-  // Partners
   sectionTitle: { fontSize: 18, fontWeight: 'bold', marginBottom: 16 },
-  partnersRow: { flexDirection: 'row', justifyContent: 'space-between' },
+  partnersRow: { 
+    flexDirection: 'row', 
+    justifyContent: 'space-between', 
+    alignItems: 'center', 
+    marginTop: 10,
+    paddingHorizontal: 10 
+  },
+  
   partnerLogo: { 
-    width: 70, height: 40, 
-    backgroundColor: '#f9f9f9', 
-    justifyContent: 'center', alignItems: 'center', 
-    borderRadius: 8 
+    width: 80,      
+    height: 40,      
   }
 });
