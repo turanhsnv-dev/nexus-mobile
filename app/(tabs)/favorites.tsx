@@ -1,9 +1,25 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  Image,
+  TouchableOpacity,
+  ListRenderItem,
+  ImageSourcePropType,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+type FavoriteItem = {
+  id: string;
+  name: string;
+  discount: string;
+  image: ImageSourcePropType;
+};
+
 // Siyahı Məlumatları (Data)
-const DATA = [
+const DATA: FavoriteItem[] = [
   {
     id: '1',
     name: 'Baku Medical Plaza',
@@ -31,9 +47,8 @@ const DATA = [
 ];
 
 export default function FavoritesScreen() {
-
   // Hər bir kartın necə görünəcəyi
-  const renderItem = ({ item }) => (
+  const renderItem: ListRenderItem<FavoriteItem> = ({ item }) => (
     <TouchableOpacity style={styles.card} activeOpacity={0.9}>
       
       {/* Logo (Ortada) */}
@@ -72,6 +87,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FAFAFA', // Arxa fon azca boz olsun (kartlar ağdır deyə)
+    paddingTop: 15,
   },
   headerTitle: {
     fontSize: 22,

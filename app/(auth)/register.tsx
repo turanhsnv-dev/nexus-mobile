@@ -12,6 +12,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import GoogleLogo from '../../assets/google-g.svg';
 
 export default function RegisterScreen() {
   const router = useRouter();
@@ -102,7 +103,7 @@ export default function RegisterScreen() {
               <FontAwesome name="facebook-f" size={24} color="#3b5998" />
             </TouchableOpacity>
             <TouchableOpacity style={styles.socialButton}>
-              <FontAwesome name="google" size={24} color="#DB4437" />
+              <GoogleLogo width={24} height={24} />
             </TouchableOpacity>
             <TouchableOpacity style={styles.socialButton}>
               <FontAwesome name="apple" size={24} color="#000" />

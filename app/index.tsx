@@ -1,6 +1,7 @@
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
+import AzeraSvg from '../assets/azera.svg';
 
 export default function WelcomeScreen() {
   const router = useRouter();
@@ -8,11 +9,7 @@ export default function WelcomeScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.logoContainer}>
-        <Image
-          source={require('../assets/logo.png')}
-          style={styles.logo}
-          resizeMode="contain"
-        />
+        <AzeraSvg width={280} height={320} />
       </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
@@ -44,10 +41,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  logo: {
-    width: 240,
-    height: 70,
   },
   buttonContainer: {
     paddingHorizontal: 20,
