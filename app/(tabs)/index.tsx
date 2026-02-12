@@ -115,11 +115,11 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     marginBottom: 20,
   },
-  bonusNumber: { fontSize: 44, fontWeight: "bold", color: "#000" },
+  bonusNumber: { fontSize: 55, fontWeight: "bold", color: "#000" },
   bonusLabel: { fontSize: 14, color: "#999", marginTop: -5 },
   userInfo: { flex: 1, marginLeft: 20, paddingTop: 4 },
-  userName: { fontSize: 18, fontWeight: "bold", color: "#000" },
-  userRole: { fontSize: 13, color: "#999" },
+  userName: { fontSize: 18, fontWeight: "bold", color: "#000", marginTop: 4 },
+  userRole: { fontSize: 13, color: "#999", marginTop: 10 },
 
   card: {
     backgroundColor: "#E5E7EB",

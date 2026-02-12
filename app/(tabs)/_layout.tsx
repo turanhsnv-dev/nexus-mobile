@@ -1,21 +1,31 @@
 import { Tabs } from 'expo-router';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Platform } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function TabLayout() {
+  const insets = useSafeAreaInsets();
+
   return (
     <Tabs screenOptions={{ 
       headerShown: false, 
       tabBarShowLabel: false, 
       tabBarStyle: { 
-        height: 70, 
+        // HÜNDÜRLÜK: 60px (standart) + Aşağıdakı sistem boşluğu
+        height: 60 + insets.bottom, 
+        
+        // PADDING: İkonları aşağıdan və yuxarıdan sıxırıq
+        paddingBottom: insets.bottom > 0 ? insets.bottom - 5 : 5, // Androiddə çox boşluq qalmasın
+        paddingTop: 5, 
+        
         backgroundColor: '#fff',
         borderTopWidth: 0,
-        elevation: 0,
-        shadowOpacity: 0
+        elevation: 0, // Android kölgəsini silir
+        shadowOpacity: 0, // iOS kölgəsini silir
       } 
     }}>
       
+      {/* 1. HOME */}
       <Tabs.Screen 
         name="index" 
         options={{
@@ -32,6 +42,7 @@ export default function TabLayout() {
         }} 
       />
 
+      {/* 2. HISTORY */}
       <Tabs.Screen 
         name="history" 
         options={{
@@ -39,7 +50,7 @@ export default function TabLayout() {
             <View style={styles.iconContainer}>
               <Ionicons 
                 name={focused ? "time" : "time-outline"} 
-                size={26} 
+                size={25} 
                 color={focused ? "#1F1F1F" : "#9CA3AF"} 
               />
               {focused && <View style={styles.activeDot} />}
@@ -48,6 +59,7 @@ export default function TabLayout() {
         }} 
       />
 
+      {/* 3. FAVORITES */}
       <Tabs.Screen 
         name="favorites" 
         options={{
@@ -55,7 +67,7 @@ export default function TabLayout() {
             <View style={styles.iconContainer}>
               <Ionicons 
                 name={focused ? "heart" : "heart-outline"} 
-                size={26} 
+                size={25} 
                 color={focused ? "#1F1F1F" : "#9CA3AF"} 
               />
               {focused && <View style={styles.activeDot} />}
@@ -64,6 +76,7 @@ export default function TabLayout() {
         }} 
       />
 
+      {/* 4. PROFILE */}
       <Tabs.Screen 
         name="profile" 
         options={{
@@ -87,13 +100,14 @@ const styles = StyleSheet.create({
   iconContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    top: 10, // İkonları mərkəzləşdirmək üçün biraz aşağı salırıq
+    height: '100%', 
+    width: 50, // Klikləmə sahəsi
   },
   activeDot: {
-    width: 6,
-    height: 6,
+    width: 5, // Nöqtəni biraz zərifləşdirdim
+    height: 5,
     borderRadius: 3,
-    backgroundColor: '#FF3B30', // Sənin istədiyin qırmızı rəng
-    marginTop: 4, // İkonla nöqtə arasındakı məsafə
+    backgroundColor: '#FF3B30', 
+    marginTop: 4, // İkondan məsafə (ideal balans)
   }
 });
