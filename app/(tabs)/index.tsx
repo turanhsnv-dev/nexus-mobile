@@ -8,8 +8,12 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useRouter } from "expo-router"; // <--- 1. BU SƏTRİ ƏLAVƏ ET
 
 export default function HomeScreen() {
+  const router = useRouter(); 
+  
+  // true = Əməkdaş (12%), false = Müştəri (24 bonus)
   const isEmployee = true;
 
   return (
@@ -18,6 +22,7 @@ export default function HomeScreen() {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
+        {/* --- BAŞLIQ --- */}
         <View style={styles.header}>
           <View>
             <Text style={styles.bonusNumber}>{isEmployee ? "12%" : "24"}</Text>
@@ -34,6 +39,7 @@ export default function HomeScreen() {
           </View>
         </View>
 
+        {/* --- KART --- */}
         <View style={styles.card}>
           <Image
             source={require("../../assets/logo.png")}
@@ -41,16 +47,24 @@ export default function HomeScreen() {
             resizeMode="contain"
           />
 
-          <View style={styles.whiteBox}>
-            <View style={styles.barcodePlaceholder}>
-              {[4, 8, 2, 6, 10, 3, 7, 5, 9, 4, 6, 3, 8, 5].map((w, i) => (
-                <View key={i} style={[styles.bar, { width: w }]} />
-              ))}
-            </View>
+          {/* --- BURA DİQQƏT: View əvəzinə TouchableOpacity işlətdik --- */}
+          <TouchableOpacity 
+            style={styles.whiteBox} 
+            activeOpacity={0.9}
+            onPress={() => router.push('/barcode')} // <--- YENİ SƏHİFƏYƏ KEÇİD
+          >
+            <Image 
+                source={require('../../assets/barkod.png')}
+                style={styles.barcodeImage}
+                resizeMode="contain"
+            />
             <Text style={styles.cardNumber}>3 005 038 294 738</Text>
-          </View>
+          </TouchableOpacity>
+          {/* ----------------------------------------------------------- */}
+
         </View>
 
+        {/* --- MENYU --- */}
         <View style={styles.menuList}>
           <TouchableOpacity style={styles.menuItem}>
             <Text style={styles.menuText}>Endirimlər</Text>
@@ -62,6 +76,7 @@ export default function HomeScreen() {
           <View style={styles.separator} />
         </View>
 
+        {/* --- TƏRƏFDAŞLAR --- */}
         <Text style={styles.sectionTitle}>Tərəfdaşlar</Text>
         <View style={styles.partnersRow}>
           <Image
@@ -97,19 +112,20 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
+    alignItems: "flex-start",
     marginBottom: 20,
   },
   bonusNumber: { fontSize: 44, fontWeight: "bold", color: "#000" },
   bonusLabel: { fontSize: 14, color: "#999", marginTop: -5 },
-  userInfo: { flex: 1, marginLeft: 20 },
+  userInfo: { flex: 1, marginLeft: 20, paddingTop: 4 },
   userName: { fontSize: 18, fontWeight: "bold", color: "#000" },
   userRole: { fontSize: 13, color: "#999" },
 
   card: {
     backgroundColor: "#E5E7EB",
-    borderRadius: 16,
-    padding: 16,
+    borderRadius: 20,
+    paddingVertical: 24,
+    paddingHorizontal: 20,
     marginBottom: 30,
     alignItems: "center",
     shadowColor: "#000",
@@ -118,29 +134,30 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     elevation: 5,
   },
-  cardLogo: { width: 140, height: 40, marginBottom: 16 },
+  cardLogo: { width: 200, height: 60, marginBottom: 20 },
+  
   whiteBox: {
     backgroundColor: "#fff",
     width: "100%",
-    paddingVertical: 20,
-    borderRadius: 12,
+    paddingVertical: 26,
+    paddingHorizontal: 16,
+    borderRadius: 16,
     alignItems: "center",
   },
+  
+  barcodeImage: {
+    width: "100%",
+    height: 100,
+    marginBottom: 10,
+  },
+  
   cardNumber: {
     fontSize: 14,
     fontWeight: "600",
     color: "#333",
-    marginTop: 10,
-    letterSpacing: 1,
+    marginTop: 5,
+    letterSpacing: 2,
   },
-  barcodePlaceholder: {
-    flexDirection: "row",
-    height: 50,
-    gap: 3,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  bar: { backgroundColor: "#000", height: "100%" },
 
   menuList: { marginBottom: 30 },
   menuItem: { paddingVertical: 16 },
