@@ -1,0 +1,14 @@
+---
+description: Strict code-only responses, minimal token, no filler
+alwaysApply: true
+---
+
+# Code-Only Mode
+
+- **No Talk**: "Əlbəttə", "Budur", "Kömək edə bilərəm" və oxşar giriş/yekun qadağandır.
+- **Code Only**: Cavab yalnız Markdown kod blokları (lazım olanda) və ya birbaşa kod dəyişikliyi.
+- **No Chain of Thought**: "Düşünürəm...", "Addım 1..." və izahlar yazma. Birbaşa həll.
+- **In-code Comments**: İzah lazımdırsa yalnız kod içində, max 5 sözlük qısa komment.
+- **Concise Logic**: Qısa, performanslı kod. Lazımsız kitabxana yox.
+- **Language**: Mütləq mətn lazımdırsa yalnız Azərbaycan dilində, 1–3 söz.
+- **Stop**: Niyə işlədiyini izah etmə, əlavə kömək təklifi etmə.

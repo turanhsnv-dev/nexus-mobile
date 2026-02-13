@@ -56,13 +56,16 @@ export default function LoginScreen() {
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <TouchableOpacity style={styles.forgotPassword}>
+                    <TouchableOpacity 
+                        style={styles.forgotPassword}
+                        onPress={() => router.push('/(auth)/forgot-password')}
+                    >
                         <Text style={styles.forgotText}>Şifrəni unutdum</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={styles.loginButton}
                         activeOpacity={0.8}
-                        onPress={() => router.replace('/(tabs)')} // <-- ƏSAS HİSSƏ BUDUR
+                        onPress={() => router.replace('/(tabs)')}
                     >
                         <Text style={styles.loginText}>Daxil ol</Text>
                     </TouchableOpacity>

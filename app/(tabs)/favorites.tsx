@@ -18,13 +18,12 @@ type FavoriteItem = {
   image: ImageSourcePropType;
 };
 
-// Siyahı Məlumatları (Data)
 const DATA: FavoriteItem[] = [
   {
     id: '1',
     name: 'Baku Medical Plaza',
     discount: '5-10%',
-    image: require('../../assets/bmp.png'), // Assets-dəki şəklin adı
+    image: require('../../assets/bmp.png'), 
   },
   {
     id: '2',
@@ -47,18 +46,15 @@ const DATA: FavoriteItem[] = [
 ];
 
 export default function FavoritesScreen() {
-  // Hər bir kartın necə görünəcəyi
   const renderItem: ListRenderItem<FavoriteItem> = ({ item }) => (
     <TouchableOpacity style={styles.card} activeOpacity={0.9}>
       
-      {/* Logo (Ortada) */}
       <Image 
         source={item.image} 
         style={styles.logo} 
         resizeMode="contain" 
       />
 
-      {/* Qırmızı Etiket (Sağ yuxarı künc) */}
       <View style={styles.badge}>
         <Text style={styles.badgeText}>{item.discount}</Text>
       </View>
@@ -68,10 +64,8 @@ export default function FavoritesScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Başlıq */}
       <Text style={styles.headerTitle}>Endirimlər</Text>
 
-      {/* Siyahı */}
       <FlatList
         data={DATA}
         renderItem={renderItem}
@@ -86,7 +80,7 @@ export default function FavoritesScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FAFAFA', // Arxa fon azca boz olsun (kartlar ağdır deyə)
+    backgroundColor: '#FAFAFA', 
     paddingTop: 15,
   },
   headerTitle: {
@@ -102,35 +96,32 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   
-  // --- KART DİZAYNI ---
   card: {
     backgroundColor: '#fff',
-    height: 125, // Sənin istədiyin hündürlük
-    width: '100%', // Eni ekrana görə avtomatik olsun (təxminən 355px düşəcək)
+    height: 125,
+    width: '100%', 
     borderRadius: 16,
     marginBottom: 16,
     justifyContent: 'center',
     alignItems: 'center',
-    // Kölgə (Shadow)
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.05,
     shadowRadius: 5,
-    elevation: 3, // Android üçün
-    position: 'relative', // Etiketi küncə qoymaq üçün vacibdir
+    elevation: 3, 
+    position: 'relative', 
   },
   
   logo: {
-    width: 150, // Logonun eni
-    height: 60, // Logonun hündürlüyü
+    width: 150, 
+    height: 60, 
   },
 
-  // --- QIRMIZI ETİKET (5-10%) ---
   badge: {
-    position: 'absolute', // Kartın içində sərbəst hərəkət edir
+    position: 'absolute', 
     top: 16,
     right: 16,
-    backgroundColor: '#D32F2F', // Qırmızı rəng
+    backgroundColor: '#D32F2F', 
     paddingVertical: 6,
     paddingHorizontal: 12,
     borderRadius: 8,
