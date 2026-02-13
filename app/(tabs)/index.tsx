@@ -8,12 +8,11 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useRouter } from "expo-router"; // <--- 1. BU SƏTRİ ƏLAVƏ ET
+import { useRouter } from "expo-router";
 
 export default function HomeScreen() {
   const router = useRouter(); 
   
-  // true = Əməkdaş (12%), false = Müştəri (24 bonus)
   const isEmployee = true;
 
   return (
@@ -47,11 +46,10 @@ export default function HomeScreen() {
             resizeMode="contain"
           />
 
-          {/* --- BURA DİQQƏT: View əvəzinə TouchableOpacity işlətdik --- */}
           <TouchableOpacity 
             style={styles.whiteBox} 
             activeOpacity={0.9}
-            onPress={() => router.push('/barcode')} // <--- YENİ SƏHİFƏYƏ KEÇİD
+            onPress={() => router.push('/barcode')}
           >
             <Image 
                 source={require('../../assets/barkod.png')}
@@ -60,8 +58,6 @@ export default function HomeScreen() {
             />
             <Text style={styles.cardNumber}>3 005 038 294 738</Text>
           </TouchableOpacity>
-          {/* ----------------------------------------------------------- */}
-
         </View>
 
         {/* --- MENYU --- */}
@@ -76,30 +72,25 @@ export default function HomeScreen() {
           <View style={styles.separator} />
         </View>
 
-        {/* --- TƏRƏFDAŞLAR --- */}
+        {/* --- TƏRƏFDAŞLAR (Horizontal Scroll) --- */}
         <Text style={styles.sectionTitle}>Tərəfdaşlar</Text>
-        <View style={styles.partnersRow}>
-          <Image
-            source={require("../../assets/hill.png")}
-            style={styles.partnerLogo}
-            resizeMode="contain"
-          />
-          <Image
-            source={require("../../assets/bmp.png")}
-            style={styles.partnerLogo}
-            resizeMode="contain"
-          />
-          <Image
-            source={require("../../assets/adalat.png")}
-            style={styles.partnerLogo}
-            resizeMode="contain"
-          />
-          <Image
-            source={require("../../assets/vetart.png")}
-            style={styles.partnerLogo}
-            resizeMode="contain"
-          />
-        </View>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.partnersScrollContainer}
+          style={styles.partnersScrollView}
+        >
+          <Image source={require("../../assets/hill.png")} style={styles.partnerLogo} resizeMode="contain" />
+          <Image source={require("../../assets/bmp.png")} style={styles.partnerLogo} resizeMode="contain" />
+          <Image source={require("../../assets/adalat.png")} style={styles.partnerLogo} resizeMode="contain" />
+          <Image source={require("../../assets/vetart.png")} style={styles.partnerLogo} resizeMode="contain" />
+          <Image source={require("../../assets/hill.png")} style={styles.partnerLogo} resizeMode="contain" />
+          <Image source={require("../../assets/bmp.png")} style={styles.partnerLogo} resizeMode="contain" />
+          <Image source={require("../../assets/adalat.png")} style={styles.partnerLogo} resizeMode="contain" />
+          <Image source={require("../../assets/vetart.png")} style={styles.partnerLogo} resizeMode="contain" />
+         
+        </ScrollView>
+
       </ScrollView>
     </SafeAreaView>
   );
@@ -107,13 +98,14 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#fff", paddingTop: 15 },
-  scrollContent: { padding: 20 },
+  scrollContent: { paddingVertical: 20 }, // Ümumi paddingi horizontal paddingdən ayırdım
 
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-start",
     marginBottom: 20,
+    paddingHorizontal: 20, // Ümumi padding bura köçürüldü
   },
   bonusNumber: { fontSize: 55, fontWeight: "bold", color: "#000" },
   bonusLabel: { fontSize: 14, color: "#999", marginTop: -5 },
@@ -127,6 +119,7 @@ const styles = StyleSheet.create({
     paddingVertical: 24,
     paddingHorizontal: 20,
     marginBottom: 30,
+    marginHorizontal: 20, // Kənarlardan boşluq
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
@@ -159,20 +152,27 @@ const styles = StyleSheet.create({
     letterSpacing: 2,
   },
 
-  menuList: { marginBottom: 30 },
+  menuList: { marginBottom: 30, paddingHorizontal: 20 },
   menuItem: { paddingVertical: 16 },
   menuText: { fontSize: 16, color: "#000" },
   separator: { height: 1, backgroundColor: "#eee" },
 
-  sectionTitle: { fontSize: 18, fontWeight: "bold", marginBottom: 16 },
-  partnersRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+  sectionTitle: { 
+    fontSize: 18, 
+    fontWeight: "bold", 
+    marginBottom: 16, 
+    paddingHorizontal: 20 
+  },
+  
+  partnersScrollView: { maxHeight: 60 },
+  partnersScrollContainer: {
+    paddingHorizontal: 20,
     alignItems: "center",
-    marginTop: 10,
+    paddingBottom: 20,
   },
   partnerLogo: {
-    width: 75,
-    height: 40,
+    width: 80,
+    height: 50,
+    marginRight: 20,
   },
 });
