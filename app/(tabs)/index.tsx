@@ -35,7 +35,7 @@ export default function HomeScreen() {
         <View style={[styles.card, { backgroundColor: isDark ? colors.inputBg : '#E5E7EB' }]}>
           <Image source={require("../../assets/logo.png")} style={[styles.cardLogo, { tintColor: isDark ? colors.text : undefined }]} resizeMode="contain" />
           <TouchableOpacity
-            style={[styles.whiteBox, { backgroundColor: colors.card }]}
+            style={[styles.whiteBox, { backgroundColor: colors.card, borderWidth: isDark ? 1 : 0, borderColor: isDark ? colors.border : 'transparent' }]}
             activeOpacity={0.9}
             onPress={() => router.push('/barcode')}
           >
