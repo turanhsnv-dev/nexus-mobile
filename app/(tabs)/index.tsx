@@ -21,7 +21,7 @@ export default function HomeScreen() {
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.backgroundSecondary }]} edges={['top']}>
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false} style={{ backgroundColor: colors.backgroundSecondary }}>
-        <View style={[styles.header, { paddingHorizontal: 20 }]}>
+        <View style={styles.header}>
           <View>
             <Text style={[styles.bonusNumber, { color: colors.text }]}>{isEmployee ? "12%" : "24"}</Text>
             <Text style={[styles.bonusLabel, { color: colors.textSecondary }]}>{isEmployee ? "endirim" : "bonus"}</Text>
