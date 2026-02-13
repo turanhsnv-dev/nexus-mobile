@@ -97,15 +97,15 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#fff", paddingTop: 15 },
-  scrollContent: { paddingVertical: 20 }, // Ümumi paddingi horizontal paddingdən ayırdım
+  container: { flex: 1, paddingTop: 15, backgroundColor: "#ffffff" },
+  scrollContent: { paddingVertical: 20 }, 
 
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-start",
     marginBottom: 20,
-    paddingHorizontal: 20, // Ümumi padding bura köçürüldü
+    paddingHorizontal: 20, 
   },
   bonusNumber: { fontSize: 55, fontWeight: "bold", color: "#000" },
   bonusLabel: { fontSize: 14, color: "#999", marginTop: -5 },
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     paddingVertical: 24,
     paddingHorizontal: 20,
     marginBottom: 30,
-    marginHorizontal: 20, // Kənarlardan boşluq
+    marginHorizontal: 20, 
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
