@@ -1,31 +1,31 @@
 // constants/Colors.ts
 
-const tintColorLight = '#C91C1C'; // Azera Qırmızı
-const tintColorDark = '#FF453A';  // Qaranlıq rejim üçün açıq qırmızı
+const tintColorLight = '#C91C1C';
+const tintColorDark = '#FF453A';
 
 export const Colors = {
   light: {
-    text: '#111827',           // Qara mətn
-    textSecondary: '#6B7280',  // Boz mətn
-    background: '#FFFFFF',     // Ağ fon
-    backgroundSecondary: '#F8F9FA', // Səhifə fonu (Açıq boz)
-    card: '#FFFFFF',           // Kart rəngi
-    border: '#E5E7EB',         // Çərçivə
-    icon: '#374151',           // İkon rəngi
-    tint: tintColorLight,      // Aktiv rəng
-    inputBg: '#F3F4F6',        // Input arxa fonu
-    shadow: '#000000',         // Kölgə rəngi
+    text: '#111827',
+    textSecondary: '#6B7280',
+    background: '#FFFFFF',
+    backgroundSecondary: '#F8F9FA',
+    card: '#FFFFFF',
+    border: '#E5E7EB',
+    icon: '#374151',
+    tint: tintColorLight,
+    inputBg: '#F3F4F6',
+    shadow: '#000000',
   },
   dark: {
-    text: '#F9FAFB',           // Ağ mətn
-    textSecondary: '#9CA3AF',  // Boz mətn
-    background: '#111827',     // Tünd fon (Deep Blue/Black)
-    backgroundSecondary: '#000000', // Tam qara fon
-    card: '#1F2937',           // Tünd boz kart
-    border: '#374151',         // Tünd çərçivə
-    icon: '#9CA3AF',           // Açıq boz ikon
-    tint: tintColorDark,       // Aktiv rəng
-    inputBg: '#374151',        // Input arxa fonu
-    shadow: '#000000',         // Kölgə
+    text: '#FFFFFF',           // Tam ağ
+    textSecondary: '#A1A1AA',  // Daha açıq boz (Zinc-400)
+    background: '#000000',     // 🔥 TAM QARA
+    backgroundSecondary: '#000000', // Səhifə fonu da tam qara
+    card: '#121212',           // 🔥 Çox tünd boz (Göyümtül deyil!)
+    border: '#333333',         // İncə border
+    icon: '#D4D4D8',
+    tint: tintColorDark,
+    inputBg: '#18181B',
+    shadow: '#C91C1C',         // 🔥 KÖLGƏ RƏNGİ QIRMIZI (NEON ÜÇÜN)
   },
 };

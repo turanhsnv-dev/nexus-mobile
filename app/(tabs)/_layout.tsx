@@ -1,27 +1,26 @@
 import { Tabs } from 'expo-router';
-import { View, StyleSheet, Platform } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useTheme } from '../../context/ThemeContext'; // Hook əlavə edildi
 
 export default function TabLayout() {
   const insets = useSafeAreaInsets();
+  const { colors, isDark } = useTheme(); // Rəngləri götürürük
 
   return (
     <Tabs screenOptions={{ 
       headerShown: false, 
       tabBarShowLabel: false, 
-      tabBarStyle: { 
-        // HÜNDÜRLÜK: 60px (standart) + Aşağıdakı sistem boşluğu
-        height: 60 + insets.bottom, 
-        
-        // PADDING: İkonları aşağıdan və yuxarıdan sıxırıq
-        paddingBottom: insets.bottom > 0 ? insets.bottom - 5 : 5, // Androiddə çox boşluq qalmasın
-        paddingTop: 5, 
-        
-        backgroundColor: '#fff',
-        borderTopWidth: 0,
-        elevation: 0, // Android kölgəsini silir
-        shadowOpacity: 0, // iOS kölgəsini silir
+      tabBarStyle: {
+        height: 56 + insets.bottom,
+        paddingTop: 8,
+        paddingBottom: Math.max(insets.bottom, 8),
+        backgroundColor: colors.card,
+        borderTopColor: colors.border,
+        borderTopWidth: 1,
+        elevation: 0,
+        shadowOpacity: 0,
       } 
     }}>
       
@@ -34,7 +33,8 @@ export default function TabLayout() {
               <Ionicons 
                 name={focused ? "home" : "home-outline"} 
                 size={24} 
-                color={focused ? "#1F1F1F" : "#9CA3AF"} 
+                // --- DƏYİŞİKLİK 2: İkon rəngləri ---
+                color={focused ? colors.text : colors.textSecondary} 
               />
               {focused && <View style={styles.activeDot} />}
             </View>
@@ -51,7 +51,7 @@ export default function TabLayout() {
               <Ionicons 
                 name={focused ? "time" : "time-outline"} 
                 size={25} 
-                color={focused ? "#1F1F1F" : "#9CA3AF"} 
+                color={focused ? colors.text : colors.textSecondary} 
               />
               {focused && <View style={styles.activeDot} />}
             </View>
@@ -68,7 +68,7 @@ export default function TabLayout() {
               <Ionicons 
                 name={focused ? "heart" : "heart-outline"} 
                 size={25} 
-                color={focused ? "#1F1F1F" : "#9CA3AF"} 
+                color={focused ? colors.text : colors.textSecondary} 
               />
               {focused && <View style={styles.activeDot} />}
             </View>
@@ -85,7 +85,7 @@ export default function TabLayout() {
               <Ionicons 
                 name={focused ? "person" : "person-outline"} 
                 size={24} 
-                color={focused ? "#1F1F1F" : "#9CA3AF"} 
+                color={focused ? colors.text : colors.textSecondary} 
               />
               {focused && <View style={styles.activeDot} />}
             </View>
@@ -101,13 +101,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     height: '100%', 
-    width: 50, // Klikləmə sahəsi
+    width: 50, 
   },
   activeDot: {
-    width: 5, // Nöqtəni biraz zərifləşdirdim
+    width: 5, 
     height: 5,
     borderRadius: 3,
-    backgroundColor: '#FF3B30', 
-    marginTop: 4, // İkondan məsafə (ideal balans)
+    backgroundColor: '#C91C1C', // Aktiv nöqtə hər iki rejimdə qırmızı qalsın
+    marginTop: 4, 
   }
 });
