@@ -2,29 +2,37 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import AzeraSvg from '../assets/azera.svg';
+import { useTheme } from '../context/ThemeContext';
 
 export default function WelcomeScreen() {
   const router = useRouter();
+  const { colors } = useTheme();
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={styles.logoContainer}>
         <AzeraSvg width={280} height={320} />
       </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
-          style={styles.loginButton}
+          style={[styles.loginButton, { backgroundColor: colors.tint }]}
           activeOpacity={0.8}
           onPress={() => router.push('/login')}
         >
           <Text style={styles.loginText}>Daxil ol</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.registerButton}
+          style={[
+            styles.registerButton, 
+            { 
+              backgroundColor: colors.background, 
+              borderColor: colors.tint,
+            }
+          ]}
           activeOpacity={0.8}
           onPress={() => router.push('/register')}
         >
-          <Text style={styles.registerText}>Qeydiyyatdan keç</Text>
+          <Text style={[styles.registerText, { color: colors.text }]}>Qeydiyyatdan keç</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -34,7 +42,6 @@ export default function WelcomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     justifyContent: 'space-between',
   },
   logoContainer: {
@@ -48,7 +55,6 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   loginButton: {
-    backgroundColor: '#C91C1C',
     paddingVertical: 16,
     borderRadius: 12,
     alignItems: 'center',
@@ -59,15 +65,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   registerButton: {
-    backgroundColor: '#fff',
     borderWidth: 1,
-    borderColor: '#C91C1C',
     paddingVertical: 16,
     borderRadius: 12,
     alignItems: 'center',
   },
   registerText: {
-    color: '#000',
     fontSize: 16,
     fontWeight: '600',
   }
