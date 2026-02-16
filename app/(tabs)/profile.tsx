@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, useCallback } from 'react';
 import { 
   View, 
   Text, 
@@ -11,86 +11,40 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { useTheme } from '../../context/ThemeContext'; // Hook-u çağırırıq
+import { useTheme } from '../../context/ThemeContext';
+import { Colors } from '../../constants/colors';
 
-export default function ProfileScreen() {
-  const router = useRouter();
-  const { isDark, toggleTheme, colors } = useTheme(); // Rəngləri götürürük
-
-  const handleLogout = () => {
-    router.replace('/(auth)/login');
-  };
-
-  return (
-    // DƏYİŞİKLİK 1: Arxa fon rəngini dinamik edirik
-    <SafeAreaView style={[styles.container, { backgroundColor: colors.backgroundSecondary }]} edges={['top']}>
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
-        
-        {/* Başlıq rəngi dinamik */}
-        <Text style={[styles.headerTitle, { color: colors.text }]}>Profil</Text>
-
-        {/* --- İSTİFADƏÇİ KARTI --- */}
-        <View style={styles.userCard}>
-          <View style={styles.avatarContainer}>
-            <Image 
-              source={{ uri: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80' }} 
-              style={[styles.avatar, { borderColor: colors.card }]} 
-            />
-            <TouchableOpacity style={[styles.editBadge, { backgroundColor: colors.text, borderColor: colors.card }]}>
-              <Ionicons name="pencil" size={12} color={colors.background} />
-            </TouchableOpacity>
-          </View>
-          
-          <Text style={[styles.userName, { color: colors.text }]}>Ləman Mönsünlü</Text>
-          <Text style={[styles.userRole, { color: colors.textSecondary }]}>Azera Holdinq əməkdaşı</Text>
-          
-          <View style={[styles.statusBadge, { backgroundColor: isDark ? '#333' : '#FEF3C7' }]}>
-            <Text style={[styles.statusText, { color: isDark ? '#FBBF24' : '#D97706' }]}>Premium Üzv</Text>
-          </View>
-        </View>
-
-        {/* --- QRUPLAR --- */}
-        <Text style={[styles.sectionHeader, { color: colors.textSecondary }]}>Hesab tənzimləmələri</Text>
-        {/* Kartların rəngini dəyişirik */}
-        <View style={[styles.sectionContainer, { backgroundColor: colors.card }]}>
-          <ProfileItem icon="person-outline" title="Şəxsi məlumatlar" colors={colors} />
-          <ProfileItem icon="shield-checkmark-outline" title="Təhlükəsizlik və Şifrə" colors={colors} />
-          <ProfileItem icon="notifications-outline" title="Bildirişlər" showBadge colors={colors} />
-        </View>
-
-        <Text style={[styles.sectionHeader, { color: colors.textSecondary }]}>Tətbiq</Text>
-        <View style={[styles.sectionContainer, { backgroundColor: colors.card }]}>
-          <ProfileItem icon="globe-outline" title="Dil seçimi" value="Azərbaycan" colors={colors} />
-          
-          {/* Switch üçün rəngləri tənzimləyirik */}
-          <ProfileItem 
-            icon="moon-outline" 
-            title="Qaranlıq rejim" 
-            isSwitch 
-            switchValue={isDark} 
-            onSwitchChange={toggleTheme} 
-            colors={colors}
-          />
-          <ProfileItem icon="document-text-outline" title="Qaydalar və Şərtlər" colors={colors} />
-        </View>
-
-        <TouchableOpacity style={[styles.logoutButton, { backgroundColor: isDark ? 'rgba(220, 38, 38, 0.2)' : '#FEE2E2' }]} onPress={handleLogout}>
-          <Ionicons name="log-out-outline" size={20} color="#DC2626" />
-          <Text style={styles.logoutText}>Hesabdan çıx</Text>
-        </TouchableOpacity>
-
-        <Text style={[styles.versionText, { color: colors.textSecondary }]}>Versiya 1.0.0</Text>
-
-      </ScrollView>
-    </SafeAreaView>
-  );
+// --- Types ---
+interface ProfileItemProps {
+  icon: keyof typeof Ionicons.glyphMap;
+  title: string;
+  value?: string;
+  showBadge?: boolean;
+  isSwitch?: boolean;
+  switchValue?: boolean;
+  onSwitchChange?: (value: boolean) => void;
+  colors: typeof Colors.light;
+  onPress?: () => void;
 }
 
-// Reusable Component - Rəngləri props kimi qəbul edir
-const ProfileItem = ({ 
-  icon, title, value, showBadge, isSwitch, switchValue, onSwitchChange, colors 
-}: any) => (
-  <TouchableOpacity style={styles.itemContainer} activeOpacity={0.7}>
+// --- Components ---
+const ProfileItem = memo(({ 
+  icon, 
+  title, 
+  value, 
+  showBadge, 
+  isSwitch, 
+  switchValue, 
+  onSwitchChange, 
+  colors,
+  onPress
+}: ProfileItemProps) => (
+  <TouchableOpacity 
+    style={styles.itemContainer} 
+    activeOpacity={0.7} 
+    onPress={onPress}
+    disabled={isSwitch} // Switch handled separately
+  >
     <View style={styles.itemLeft}>
       <View style={[styles.iconBox, { backgroundColor: colors.inputBg }]}>
         <Ionicons name={icon} size={20} color={colors.text} />
@@ -113,10 +67,86 @@ const ProfileItem = ({
       )}
     </View>
   </TouchableOpacity>
-);
+));
+
+export default function ProfileScreen() {
+  const router = useRouter();
+  const { isDark, toggleTheme, colors } = useTheme();
+
+  const handleLogout = useCallback(() => {
+    router.replace('/(auth)/login');
+  }, [router]);
+
+  // Placeholders for future navigation
+  const handlePress = useCallback(() => {}, []);
+
+  return (
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.backgroundSecondary }]} edges={['top']}>
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
+        
+        <Text style={[styles.headerTitle, { color: colors.text }]}>Profil</Text>
+
+        {/* User Card */}
+        <View style={styles.userCard}>
+          <View style={styles.avatarContainer}>
+            <Image 
+              source={{ uri: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80' }} 
+              style={[styles.avatar, { borderColor: colors.card }]} 
+            />
+            <TouchableOpacity style={[styles.editBadge, { backgroundColor: colors.text, borderColor: colors.card }]}>
+              <Ionicons name="pencil" size={12} color={colors.background} />
+            </TouchableOpacity>
+          </View>
+          
+          <Text style={[styles.userName, { color: colors.text }]}>Ləman Mönsünlü</Text>
+          <Text style={[styles.userRole, { color: colors.textSecondary }]}>Azera Holdinq əməkdaşı</Text>
+          
+          <View style={[styles.statusBadge, { backgroundColor: isDark ? '#333' : '#FEF3C7' }]}>
+            <Text style={[styles.statusText, { color: isDark ? '#FBBF24' : '#D97706' }]}>Premium Üzv</Text>
+          </View>
+        </View>
+
+        {/* Account Settings */}
+        <Text style={[styles.sectionHeader, { color: colors.textSecondary }]}>Hesab tənzimləmələri</Text>
+        <View style={[styles.sectionContainer, { backgroundColor: colors.card }]}>
+          <ProfileItem icon="person-outline" title="Şəxsi məlumatlar" colors={colors} onPress={handlePress} />
+          <ProfileItem icon="shield-checkmark-outline" title="Təhlükəsizlik və Şifrə" colors={colors} onPress={handlePress} />
+          <ProfileItem icon="notifications-outline" title="Bildirişlər" showBadge colors={colors} onPress={handlePress} />
+        </View>
+
+        {/* App Settings */}
+        <Text style={[styles.sectionHeader, { color: colors.textSecondary }]}>Tətbiq</Text>
+        <View style={[styles.sectionContainer, { backgroundColor: colors.card }]}>
+          <ProfileItem icon="globe-outline" title="Dil seçimi" value="Azərbaycan" colors={colors} onPress={handlePress} />
+          <ProfileItem 
+            icon="moon-outline" 
+            title="Qaranlıq rejim" 
+            isSwitch 
+            switchValue={isDark} 
+            onSwitchChange={toggleTheme} 
+            colors={colors}
+          />
+          <ProfileItem icon="document-text-outline" title="Qaydalar və Şərtlər" colors={colors} onPress={handlePress} />
+        </View>
+
+        <TouchableOpacity 
+            style={[styles.logoutButton, { backgroundColor: isDark ? 'rgba(220, 38, 38, 0.2)' : '#FEE2E2' }]} 
+            onPress={handleLogout}
+            activeOpacity={0.8}
+        >
+          <Ionicons name="log-out-outline" size={20} color="#DC2626" />
+          <Text style={styles.logoutText}>Hesabdan çıx</Text>
+        </TouchableOpacity>
+
+        <Text style={[styles.versionText, { color: colors.textSecondary }]}>Versiya 1.0.0</Text>
+
+      </ScrollView>
+    </SafeAreaView>
+  );
+}
 
 const styles = StyleSheet.create({
-  container: { flex: 1 }, // Background rəngi burdan sildim, inline verdim
+  container: { flex: 1 },
   scrollContent: { paddingBottom: 30 },
   headerTitle: { fontSize: 28, fontWeight: 'bold', paddingHorizontal: 20, marginTop: 10, marginBottom: 20 },
   userCard: { alignItems: 'center', marginBottom: 30 },
