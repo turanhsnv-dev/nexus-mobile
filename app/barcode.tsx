@@ -4,36 +4,36 @@ import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 
-const { height } = Dimensions.get('window');
+const { height, width } = Dimensions.get('window');
+const BARCODE_WIDTH = height * 0.7; // Derived from original logic
+const VERTICAL_TEXT_WIDTH = 400; // Keep fixed for rotation logic
 
 export default function BarcodeScreen() {
   const router = useRouter();
 
   return (
     <SafeAreaView style={styles.container}>
-      
-      <TouchableOpacity style={styles.closeButton} onPress={() => router.back()}>
+      <TouchableOpacity 
+        style={styles.closeButton} 
+        onPress={() => router.back()}
+        activeOpacity={0.8}
+      >
         <Ionicons name="close" size={24} color="#111827" />
       </TouchableOpacity>
 
       <View style={styles.content}>
-        
         <View style={styles.barcodeWrapper}>
-            
-            <View style={styles.textContainer}>
-                <Text style={styles.verticalText}>3 005 038 294 738</Text>
-            </View>
+          <View style={styles.textContainer}>
+              <Text style={styles.verticalText}>3 005 038 294 738</Text>
+          </View>
 
-            <Image 
-              source={require('../assets/barkod-vertical.png')} 
-              style={styles.verticalBarcode} 
-              resizeMode="contain" 
-            />
-
+          <Image 
+            source={require('../assets/barkod-vertical.png')} 
+            style={styles.verticalBarcode} 
+            resizeMode="contain" 
+          />
         </View>
-
       </View>
-
     </SafeAreaView>
   );
 }
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
   closeButton: {
     position: 'absolute',
-    top: 50,
+    top: 20,
     right: 20,
     zIndex: 10,
     width: 40,
@@ -64,29 +64,26 @@ const styles = StyleSheet.create({
     flexDirection: 'row', 
     alignItems: 'center',
     justifyContent: 'center',
-    height: height * 0.7, 
+    height: BARCODE_WIDTH, 
   },
-  
   textContainer: {
     width: 40, 
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 4, 
+    marginRight: 8, 
   },
-  
-  
   verticalText: {
-    width: 400, 
+    width: VERTICAL_TEXT_WIDTH, 
     textAlign: 'center', 
     transform: [{ rotate: '90deg' }], 
-    fontSize: 13,
-    fontWeight: '500',
+    fontSize: 14,
+    fontWeight: '600',
     color: '#000',
-    letterSpacing: 2, 
+    letterSpacing: 3, 
   },
   verticalBarcode: {
-    width: 200, 
+    width: width * 0.5, 
     height: '100%', 
   },
 });

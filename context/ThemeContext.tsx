@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { useColorScheme } from 'react-native'; // Telefonun öz rejimini oxuyur
-import { Colors } from '../constants/colors'; // Bayaq yaratdığın fayl
+import React, { createContext, useContext, useState, useEffect, useMemo, useCallback } from 'react';
+import { useColorScheme } from 'react-native';
+import { Colors } from '../constants/colors';
 
 type Theme = 'light' | 'dark';
 
@@ -11,7 +11,6 @@ interface ThemeContextType {
   isDark: boolean;
 }
 
-// Boş bir context yaradırıq
 const ThemeContext = createContext<ThemeContextType>({
   theme: 'light',
   colors: Colors.light,
@@ -30,20 +29,23 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, [systemScheme, userHasSet]);
 
-  const toggleTheme = () => {
+  const toggleTheme = useCallback(() => {
     setUserHasSet(true);
     setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
-  };
+  }, []);
 
-  const isDark = theme === 'dark';
-  const colors = Colors[theme]; // Hazırki rəngləri seçirik
+  const value = useMemo(() => ({
+    theme,
+    colors: Colors[theme],
+    toggleTheme,
+    isDark: theme === 'dark',
+  }), [theme, toggleTheme]);
 
   return (
-    <ThemeContext.Provider value={{ theme, colors, toggleTheme, isDark }}>
+    <ThemeContext.Provider value={value}>
       {children}
     </ThemeContext.Provider>
   );
 };
 
-// Səhifələrdə istifadə etmək üçün qısa yol (Hook)
 export const useTheme = () => useContext(ThemeContext);
